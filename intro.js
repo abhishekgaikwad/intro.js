@@ -1,5 +1,5 @@
 /**
- * Intro.js v2.9.3
+ * Intro.js v2.9.4
  * https://github.com/usablica/intro.js
  *
  * Copyright (C) 2017 Afshin Mehrabani (@afshinmeh)
@@ -32,7 +32,7 @@
     }
 })(function () {
   //Default config/variables
-  var VERSION = '2.9.3';
+  var VERSION = '2.9.4';
 
   /**
    * IntroJs main class
@@ -78,6 +78,8 @@
       showProgress: false,
       /* Scroll to highlighted element? */
       scrollToElement: true,
+
+      isMobile: false,
       /*
        * Should we scroll the tooltip or target element?
        *
@@ -633,6 +635,11 @@
     // Floating is always valid, no point in calculating
     if (currentTooltipPosition !== "floating") { 
       currentTooltipPosition = _determineAutoPosition.call(this, targetElement, tooltipLayer, currentTooltipPosition);
+    }
+
+    var currentOption = this._options.steps[this._currentStep];
+    if (currentOption.mobileFixedPosition && this.isMobile) {
+      currentTooltipPosition = currentOption.mobileFixedPosition;
     }
 
     var tooltipLayerStyleLeft;
